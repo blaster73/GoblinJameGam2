@@ -7,12 +7,15 @@ public class Manager : MonoBehaviour
     public enum OvalState {Shrink, Enlarge, Pause};
 
     public RectTransform oval;
-    public Vector2 startingSize;
+    private Vector2 startingSize;
     public float speed = 1;
     public OvalState direction;
-    public OvalState prevDirection;
+    private OvalState prevDirection;
+    public Vector2[] slotActivations;
+    public float[] slotCheckpoints;
     
-    public Vector2 targetSize;
+    
+    private Vector2 targetSize;
     private Vector2 velocity = Vector2.zero;
     private float time = 0;
 

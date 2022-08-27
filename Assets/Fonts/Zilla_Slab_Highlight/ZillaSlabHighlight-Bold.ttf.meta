@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: aef99bac866e73247b0f49fdefb5d3b8
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Zilla Slab Highlight
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 41dfbfa2534306f478ba4adb9a8ce0d2, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
