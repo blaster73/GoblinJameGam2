@@ -115,7 +115,9 @@ public class Manager : MonoBehaviour
             }
         }
         outgoing = newOutgoing + 1;
+
         outgoingText.text = outgoing.ToString();
+        incomingText.text = incoming.ToString();
 
         if(incoming > outgoing)
         {

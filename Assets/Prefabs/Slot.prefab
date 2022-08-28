@@ -635,6 +635,9 @@ MonoBehaviour:
   border: {fileID: 7177083634407078007}
   notColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
   currentColor: {r: 0, g: 1, b: 0.8745098, a: 1}
+  gameScreen: {fileID: 0}
+  mainCamera: {fileID: 0}
+  manager: {fileID: 0}
   maxPow: 3
   minPow: -3
   startPow: 0

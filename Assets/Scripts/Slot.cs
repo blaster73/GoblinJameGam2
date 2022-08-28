@@ -59,8 +59,8 @@ public class Slot : MonoBehaviour
             border.color = notColor;
         }
 
-        gameScreen.DOShakePosition(0.5f, 8, 10);
-        mainCamera.DOShakePosition(0.4f, 0.1f, 8);
+        gameScreen.DOShakePosition(0.25f, 6, 30);
+        //mainCamera.DOShakePosition(0.4f, 0.1f, 8);
         StartCoroutine(manager.DoPause());
         
     }
