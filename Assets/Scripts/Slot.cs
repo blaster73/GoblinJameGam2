@@ -21,6 +21,9 @@ public class Slot : MonoBehaviour
 
     public Manager manager;
 
+    public AudioSource audioSource;
+    public AudioSource click;
+
     [Header("Power Settings")]
     public int maxPow = 3;
     public int minPow = -3;
@@ -32,6 +35,7 @@ public class Slot : MonoBehaviour
         SetCurrent(inCurrent);
         pow = startPow;
         powText.text = pow.ToString();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void SetCurrent(bool newCurrent)
@@ -44,6 +48,9 @@ public class Slot : MonoBehaviour
 
     public void SwapCurrent(bool newInCurrent)
     {
+
+        audioSource.Play();
+
         if(!inCurrent)
         {
             inCurrent = true;
@@ -70,6 +77,11 @@ public class Slot : MonoBehaviour
         if(pow < maxPow)
         {
             pow++;
+            if(pow == 0)
+            {
+                pow = 1;
+            }
+            click.Play();
             powText.text = pow.ToString();
         }
     }
@@ -79,6 +91,11 @@ public class Slot : MonoBehaviour
         if(pow > minPow)
         {
             pow--;
+            if(pow == 0)
+            {
+                pow = -1;
+            }
+            click.Play();
             powText.text = pow.ToString();
         }
     }

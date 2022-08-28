@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
@@ -15,10 +16,10 @@ public class Manager : MonoBehaviour
     public Slot[] slots;
 
     [Header("Flow")]
-    public int incoming;
-    public TMP_Text incomingText;
-    public int outgoing;
-    public TMP_Text outgoingText;
+    public int reactorLevel;
+    public TMP_Text reactorText;
+    public int coolingLevel;
+    public TMP_Text coolingText;
 
     private Vector2 startingSize;
     private OvalState prevDirection;
@@ -26,8 +27,12 @@ public class Manager : MonoBehaviour
     private Vector2 velocity = Vector2.zero;
     private float time = 0;
 
-    private bool crossedCheckpoint;
-    private int currentCheckpoint = 0;
+    [Header("Game States")]
+    public bool ignoreWinLose = false;
+    public GameObject gameScreen;
+    public GameObject winScreen;
+    public GameObject loseScreen;
+    public GameObject music;
 
 
     // Start is called before the first frame update
@@ -106,33 +111,53 @@ public class Manager : MonoBehaviour
             slots[4].SetCurrent(false);
         }
 
+        // Check for losing
+        if(!ignoreWinLose)
+        {
+            if(oval.rect.width <= slotCheckpoints[0] || oval.rect.width >= slotCheckpoints[6])
+            {
+                loseScreen.SetActive(true);
+                StartCoroutine(ResetGame());
+                music.SetActive(false);
+            }
+        }
+
         int newOutgoing = 0;
         foreach(Slot s in slots)
         {
-            if(s.inCurrent)
+            /*if(s.inCurrent)
             {
                 newOutgoing += s.pow;
-            }
+            }*/
+            newOutgoing += s.pow;
         }
-        outgoing = newOutgoing + 1;
+        coolingLevel = newOutgoing + 1;
 
-        outgoingText.text = outgoing.ToString();
-        incomingText.text = incoming.ToString();
+        coolingText.text = coolingLevel.ToString();
+        reactorText.text = reactorLevel.ToString();
 
-        if(incoming > outgoing)
+        if(reactorLevel > coolingLevel)
         {
             direction = OvalState.Shrink;
         }
-        if(incoming < outgoing)
+        if(reactorLevel < coolingLevel)
         {
             direction = OvalState.Enlarge;
         }
-        if(incoming == outgoing)
+        if(reactorLevel == coolingLevel)
         {
             direction = OvalState.Pause;
         }
 
+    }
 
+    public void Win()
+    {
+        if(!ignoreWinLose)
+        {
+            gameScreen.SetActive(false);
+            winScreen.SetActive(true);
+        }
     }
 
     public IEnumerator DoPause()
@@ -147,6 +172,17 @@ public class Manager : MonoBehaviour
             yield return null;
         }
         direction = old;
+    }
+
+    IEnumerator ResetGame()
+    {
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene(0);
+    }
+
+    public void ResetGameButton()
+    {
+        SceneManager.LoadScene(0);
     }
 
 }
